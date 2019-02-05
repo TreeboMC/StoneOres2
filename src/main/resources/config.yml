@@ -1,0 +1,175 @@
+version:
+yamlCreatedInVersion: $[project.version]
+apiLink: 'https://api.github.com/repos/TreeboMC/StoneOres2/releases/latest'
+releasePage: 'https://github.com/TreeboMC/StoneOres2/releases/latest'
+checkUpdates: 'true'
+
+world:
+  BSkyBlock_world_the_end:
+    checkIslandLevel: 'true'
+    lvlcommand: 'is level'
+    tiers:
+      default: 0
+    blocktypes:
+      default:
+        COBBLESTONE: 1
+  BSkyBlock_world_nether:
+    checkIslandLevel: 'true'
+    lvlcommand: 'is level'
+    tiers:
+      default: 0
+    blocktypes:
+      default:
+        COBBLESTONE: 1
+  BSkyBlock_world: #The world name of the world you want the generator to function on.
+    checkIslandLevel: 'true'
+    lvlcommand: 'is level'
+    tiers: #List of tiers and island levels required to access them.
+      default: 0 #There must always be a default tier
+    blocktypes:
+      default: #blocktype groups must have the same name as their tier
+        COBBLESTONE: 1 #List of Bukkit standard block names and their weight for calculations
+  AcidIsland_world_the_end:
+    checkIslandLevel: 'true'
+    lvlcommand: 'ai level'
+    tiers:
+      default: 0
+    blocktypes:
+      default:
+        COBBLESTONE: 1
+  AcidIsland_world_nether:
+    checkIslandLevel: 'true'
+    lvlcommand: 'ai level'
+    tiers:
+      default: 0
+    blocktypes:
+      default:
+        COBBLESTONE: 1
+  AcidIsland_world:
+    checkIslandLevel: 'true'
+    lvlcommand: 'ai level'
+    tiers:
+      default: 0
+    blocktypes:
+      default:
+        COBBLESTONE: 1
+  SkyGrid-world:
+    checkIslandLevel: 'false'
+    lvlcommand: 'sg level'
+    tiers:
+      default: 0
+    blocktypes:
+      default:
+        COBBLESTONE: 1
+  SkyGrid-world_nether:
+    checkIslandLevel: 'false'
+    lvlcommand: 'sg level'
+    tiers:
+      default: 0
+    blocktypes:
+      default:
+        COBBLESTONE: 1
+  SktGrid-world_the_end:
+    checkIslandLevel: 'false'
+    lvlcommand: 'sg level'
+    tiers:
+      default: 0
+    blocktypes:
+      default:
+        COBBLESTONE: 1
+  SkyGrid_world:
+    checkIslandLevel: 'false'
+    lvlcommand: 'sg level'
+    tiers:
+      default: 0
+    blocktypes:
+      default:
+        COBBLESTONE: 1
+  SkyGrid_world_nether:
+    checkIslandLevel: 'false'
+    lvlcommand: 'sg level'
+    tiers:
+      default: 0
+    blocktypes:
+      default:
+        COBBLESTONE: 1
+  SktGrid_world_the_end:
+    checkIslandLevel: 'false'
+    lvlcommand: 'sg level'
+    tiers:
+      default: 0
+    blocktypes:
+      default:
+        COBBLESTONE: 1
+  CaveBlock_world:
+    checkIslandLevel: 'false'
+    lvlcommand: 'cb level'
+    tiers:
+      default: 0
+    blocktypes:
+      default:
+        COBBLESTONE: 1
+  CaveBlock_world_nether:
+    checkIslandLevel: 'false'
+    lvlcommand: 'cb level'
+    tiers:
+      default: 0
+    blocktypes:
+      default:
+        COBBLESTONE: 1
+  CaveBlock_world_the_end:
+    checkIslandLevel: 'false'
+    lvlcommand: 'cb level'
+    tiers:
+      default: 0
+    blocktypes:
+      default:
+        COBBLESTONE: 1
+  Example_world:
+    checkIslandLevel: 'true'
+    lvlcommand: 'ex level'
+    tiers:
+      default: 0
+      tiera: 100
+      tierbeta: 1000
+      tierc: 10000
+    blocktypes:
+      default:
+        COBBLESTONE: 1000
+        STONE: 500
+        DIAMOND_ORE: 50
+        EMERALD_ORE: 50
+        GOLD_ORE: 150
+        COAL_ORE: 100
+        IRON_ORE: 200
+        REDSTONE_ORE: 200
+      tiera:
+        COBBLESTONE: 500
+        STONE:
+        DIAMOND_ORE: 50
+        EMERALD_ORE: 50
+        GOLD_ORE: 150
+        COAL_ORE: 100
+        IRON_ORE: 200
+        REDSTONE_ORE: 400
+      tierbeta:
+        COBBLESTONE: 250
+        STONE: 250
+        DIAMOND_ORE: 50
+        EMERALD_ORE: 50
+        GOLD_ORE: 150
+        COAL_ORE: 100
+        IRON_ORE: 200
+        REDSTONE_ORE: 400
+      tierc:
+        COBBLESTONE: 250
+        STONE: 250
+        DIAMOND_ORE: 50
+        EMERALD_ORE: 50
+        GOLD_ORE: 150
+        COAL_ORE: 100
+        IRON_ORE: 200
+        REDSTONE_ORE: 400
+
+language: en
+debug: false

@@ -1,0 +1,34 @@
+name: StoneOres2
+version: ${project.version}
+main: me.shakeforprotein.stoneores2.StoneOres2
+api-version: 1.13
+depend: [BentoBox]
+authors: [ShakeforProtein]
+description: Replacement rewrite for StoneOres - A custom ore generator for Bentobox Skyblock, AcidIslands, SkyGrid, and CaveBlock. Could theoretically be used on any world.
+website: http://treebo.games/minecraft
+
+
+commands:
+  ores:
+    description: 'Check what ores the current island can generate.'
+    usage: /<command>
+  oresAll:
+    description: 'Show all generators available on world'
+    usage: /<command>
+  oresReload:
+    description: 'Reload StoneOres2 Config file.'
+    usage: /<command>
+  oresVersion:
+    description: 'Show StoneOres2 Version'
+    usage: /<command>
+  value:
+    description: 'StoneOres2 implementation of BentoBox block value grab.'
+    usage: /<command>
+
+permissions:
+  stoneores2.updatechecker:
+    description: 'Issues update check when player logs in'
+    default: op
+  stoneores2.reload:
+    description: 'Allows a player to reload the plugin config, and to use the query command'
+    default: op
