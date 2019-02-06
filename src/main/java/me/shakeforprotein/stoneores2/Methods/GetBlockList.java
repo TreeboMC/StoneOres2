@@ -3,6 +3,11 @@ package me.shakeforprotein.stoneores2.Methods;
 import me.shakeforprotein.stoneores2.StoneOres2;
 import org.bukkit.World;
 
+import java.util.Arrays;
+import java.util.Set;
+
+import static org.bukkit.Bukkit.getName;
+
 public class GetBlockList {
 
     private StoneOres2 plugin;
@@ -13,6 +18,9 @@ public class GetBlockList {
 
 
     public String[] getBlockList(World world, String genGroup) {
-        return plugin.getConfig().getConfigurationSection("world." + world.getName() + ".blocktypes." + genGroup).getKeys(false).toString().substring(1, plugin.getConfig().getConfigurationSection("world." + world.getName() + ".blocktypes." + genGroup).getKeys(false).toString().length() - 1).replaceAll("\\s+", "").split(",");
-    }
+
+        Set<String> keys = plugin.getConfig().getConfigurationSection("world." + world.getName() + ".blocktypes." + genGroup).getKeys(false);
+        String[] keysArray = Arrays.copyOf(keys.toArray(), keys.size(), String[].class);
+        return keysArray;
+        }
 }

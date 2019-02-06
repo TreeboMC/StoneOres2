@@ -53,6 +53,9 @@ public final class StoneOres2 extends JavaPlugin {
         uc.getCheckDownloadURL();
         getConfig().options().copyDefaults(true);
         getConfig().set("version", this.getDescription().getVersion());
+        if(getConfig().get("yamlCreatedIn") == null){
+            getConfig().set("yamlCreatedIn", this.getDescription().getVersion());
+        }
         saveConfig();
         langConfig = new File(getDataFolder(), "lang.yml");
         mkDir.mkdir(langConfig);

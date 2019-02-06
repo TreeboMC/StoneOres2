@@ -26,14 +26,14 @@ public class Ores implements CommandExecutor {
 
     public Ores(StoneOres2 main) {
         this.plugin = main;
-        this.getIslandLevel = new GetIslandLevel();
+        this.getIslandLevel = new GetIslandLevel(main);
         this.getAllGeneratorGroups = new GetAllGeneratorGroups(main);
         this.getBlockList = new GetBlockList(main);
         this.getGeneratorGroup = new GetGeneratorGroup(main);
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if ((cmd.getName().equalsIgnoreCase("stoneores")) || (cmd.getName().equalsIgnoreCase("ores"))) {
+        if (cmd.getName().equalsIgnoreCase("ores")) {
             Player p = (Player) sender;
             World world = p.getWorld();
             String worldName = world.getName();
@@ -42,6 +42,7 @@ public class Ores implements CommandExecutor {
 
                 if (plugin.getConfig().getString("world." + p.getWorld().getName() + ".checkIslandLevel").equalsIgnoreCase("true")) {
                     UUID thisIslandOwner = api.getIslands().getIslandAt(p.getLocation()).get().getOwner();
+                    p.sendMessage(getIslandLevel.getIslandLevel(thisIslandOwner, p.getWorld()) + "");
                     generatorGroup = getGeneratorGroup.getGeneratorGroup(p.getWorld(), getIslandLevel.getIslandLevel(thisIslandOwner, p.getWorld()));
                 } else {
                     generatorGroup = getGeneratorGroup.getGeneratorGroup(p.getWorld(), 1);
@@ -77,7 +78,7 @@ public class Ores implements CommandExecutor {
                         p.sendMessage(plugin.getLang().getString(plugin.mp + "hasTier").replace("{permission}", generatorGroup).replace('&', '§'));
                         p.sendMessage(plugin.getLang().getString(plugin.mp + "rates").replace('&', '§'));
 
-                        for (String item : plugin.getConfig().getConfigurationSection("world." + worldName + ".blocktypes." + generatorGroup).getKeys(false)) {
+                        for (String item : getBlockList.getBlockList(p.getWorld(), generatorGroup)) {
                             percent = plugin.getConfig().getInt("world." + worldName + ".blocktypes." + generatorGroup + "." + item);
                             double percentDouble = ((double) percent);
                             p.sendMessage("§3" + item + ": §f" + Math.rint((percentDouble / percentCalc) * 100) + "%");

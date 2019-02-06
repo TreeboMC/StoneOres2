@@ -1,5 +1,4 @@
 version:
-yamlCreatedInVersion: $[project.version]
 apiLink: 'https://api.github.com/repos/TreeboMC/StoneOres2/releases/latest'
 releasePage: 'https://github.com/TreeboMC/StoneOres2/releases/latest'
 checkUpdates: 'true'
@@ -69,7 +68,7 @@ world:
     blocktypes:
       default:
         COBBLESTONE: 1
-  SktGrid-world_the_end:
+  SkyGrid-world_the_end:
     checkIslandLevel: 'false'
     lvlcommand: 'sg level'
     tiers:
@@ -93,7 +92,7 @@ world:
     blocktypes:
       default:
         COBBLESTONE: 1
-  SktGrid_world_the_end:
+  SkyGrid_world_the_end:
     checkIslandLevel: 'false'
     lvlcommand: 'sg level'
     tiers:

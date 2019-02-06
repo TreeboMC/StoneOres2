@@ -26,7 +26,7 @@ public class BlockFromToEvent implements Listener {
         this.plugin = main;
         this.canGenerateCobble = new CanGenerateCobble(main);
         this.getBlockLocation = new GetBlockLocation(main);
-        this.getIslandLevel = new GetIslandLevel();
+        this.getIslandLevel = new GetIslandLevel(main);
         this.getGeneratorGroup = new GetGeneratorGroup(main);
         this.getBlockList = new GetBlockList(main);
         api = BentoBox.getInstance();
@@ -72,10 +72,15 @@ public class BlockFromToEvent implements Listener {
 
                             int random = 1 + (int) (Math.random() * totalChance);
 
-                            blockToMake = cases[random];
+                            blockToMake = cases[random-1];
 
 
-                            try{e.getBlock().getWorld().getBlockAt(location).setType(Material.getMaterial(blockToMake));}
+                            try{e.getBlock()
+                                    .getWorld()
+                                    .getBlockAt(location)
+                                    .setType(Material
+                                            .getMaterial(blockToMake));
+                            }
                             catch(NullPointerException err){}
                             e.setCancelled(true);
 
