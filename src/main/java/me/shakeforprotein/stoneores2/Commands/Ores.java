@@ -6,6 +6,7 @@ import me.shakeforprotein.stoneores2.Methods.GetGeneratorGroup;
 import me.shakeforprotein.stoneores2.Methods.GetIslandLevel;
 import me.shakeforprotein.stoneores2.StoneOres2;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -13,6 +14,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import world.bentobox.bentobox.BentoBox;
 
+import java.util.Arrays;
+import java.util.Set;
 import java.util.UUID;
 
 public class Ores implements CommandExecutor {
@@ -34,61 +37,32 @@ public class Ores implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (cmd.getName().equalsIgnoreCase("ores")) {
-            Player p = (Player) sender;
-            World world = p.getWorld();
-            String worldName = world.getName();
-            if (args.length == 0) {
-                String generatorGroup;
+           Player p = (Player) sender;
+           World w = p.getWorld();
+           Location blockAtFeet = p.getLocation();
+           String islandOwner;
 
-                if (plugin.getConfig().getString("world." + p.getWorld().getName() + ".checkIslandLevel").equalsIgnoreCase("true")) {
-                    UUID thisIslandOwner = api.getIslands().getIslandAt(p.getLocation()).get().getOwner();
-                    p.sendMessage(getIslandLevel.getIslandLevel(thisIslandOwner, p.getWorld()) + "");
-                    generatorGroup = getGeneratorGroup.getGeneratorGroup(p.getWorld(), getIslandLevel.getIslandLevel(thisIslandOwner, p.getWorld()));
-                } else {
-                    generatorGroup = getGeneratorGroup.getGeneratorGroup(p.getWorld(), 1);
-                }
+           try{
+               islandOwner = api.getIslands().getIslandAt(blockAtFeet).get().getOwner().toString();
+               long islandLevel = getIslandLevel.getIslandLevel(UUID.fromString(islandOwner), w);
+               String generator = getGeneratorGroup.getGeneratorGroup(w, islandLevel);
+               Double blockWeight = 0.0;
+               Double totalWeight = 0.0;
+               Set<String> blockKeysConf = plugin.getConfig().getConfigurationSection("world." + w.getName() + ".blocktypes." + generator).getKeys(false);
+               String[] blockKeysArray = Arrays.copyOf(blockKeysConf.toArray(), blockKeysConf.size(), String[].class);
 
-                String[] blocksList = getBlockList.getBlockList(p.getWorld(), generatorGroup);
-
-
-                if (plugin.getConfig().getConfigurationSection("world." + worldName) != null) {
-
-                    int percentCalc = 0, arrayId = 0, i = 0;
-                    String[] blocktypes = new String[blocksList.length];
-                    String[] cases = new String[50000];
-
-
-                    for (String item : blocksList) {
-                        percentCalc += plugin.getConfig().getInt("world." + worldName + ".blocktypes." + generatorGroup + "." + item);
-                        blocktypes[arrayId] = item;
-                        arrayId++;
-
-                        while (i < percentCalc) {
-                            cases[i] = item;
-                            i++;
-                        }
-                    }
-
-
-                    String hasPermission = null;
-                    int percent = 0;
-
-
-                    if (generatorGroup != null) {
-                        p.sendMessage(plugin.getLang().getString(plugin.mp + "hasTier").replace("{permission}", generatorGroup).replace('&', '§'));
-                        p.sendMessage(plugin.getLang().getString(plugin.mp + "rates").replace('&', '§'));
-
-                        for (String item : getBlockList.getBlockList(p.getWorld(), generatorGroup)) {
-                            percent = plugin.getConfig().getInt("world." + worldName + ".blocktypes." + generatorGroup + "." + item);
-                            double percentDouble = ((double) percent);
-                            p.sendMessage("§3" + item + ": §f" + Math.rint((percentDouble / percentCalc) * 100) + "%");
-                        }
-                    } else {
-                        p.sendMessage(ChatColor.RED + "Error determining generator group");
-
-                    }
-                }
-            }
+               for (String block : blockKeysArray) {
+                   totalWeight = totalWeight + plugin.getConfig().getInt("world." + w.getName() + ".blocktypes." + generator + "." + block);
+               }
+                p.sendMessage("This island is level " + islandLevel + " which entitles it to use generator group " + generator + "with the following approximate rates:");
+               for (String block : blockKeysArray) {
+                   blockWeight = new Double(plugin.getConfig().getInt("world." + w.getName() + ".blocktypes." + generator + "." + block));
+                   p.sendMessage(ChatColor.AQUA + block + " - " + Math.floor((blockWeight / totalWeight) * 100) + "%");
+               }
+           }
+           catch(Exception err){
+               p.sendMessage("An error occured determining island owner. You may not be standing in an island region.");
+           }
         }
         return true;
     }

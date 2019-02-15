@@ -6,7 +6,6 @@ import org.bukkit.World;
 import java.util.Arrays;
 import java.util.Set;
 
-import static org.bukkit.Bukkit.getName;
 
 public class GetBlockList {
 

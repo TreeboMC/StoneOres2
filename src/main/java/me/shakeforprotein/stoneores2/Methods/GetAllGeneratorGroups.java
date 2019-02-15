@@ -1,7 +1,13 @@
 package me.shakeforprotein.stoneores2.Methods;
 
 import me.shakeforprotein.stoneores2.StoneOres2;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.Arrays;
+import java.util.Set;
 
 public class GetAllGeneratorGroups {
 
@@ -16,21 +22,30 @@ public class GetAllGeneratorGroups {
 
     public void getAllGeneratorGroups(Player player) {
         String worldStr = player.getWorld().getName();
-        String tierKeysConf = plugin.getConfig().getConfigurationSection("world." + worldStr + ".tiers").getKeys(false).toString();
-        String[] tierKeys = tierKeysConf.substring(1, tierKeysConf.length() - 1).replaceAll("\\s+", "").split(",");
+        ConsoleCommandSender console = Bukkit.getConsoleSender();
+        Set<String> tierKeysConf = plugin.getConfig().getConfigurationSection("world." + worldStr + ".tiers").getKeys(false);
+        String[] tierKeys = Arrays.copyOf(tierKeysConf.toArray(), tierKeysConf.size(), String[].class);
+
         String generatorGroup = "default";
         for (String item : tierKeys) {
-            Integer tierPoints = plugin.getConfig().getInt("world." + worldStr + ".tiers." + item.trim());
-            player.sendMessage(" ");
-            player.sendMessage("The generator - " + item + " - requires an island level of " + tierPoints + " and generates ores at the following rates");
+            Integer tierPoints = plugin.getConfig().getInt("world." + worldStr + ".tiers." + item);
             generatorGroup = getGeneratorGroup.getGeneratorGroup(player.getWorld(), tierPoints + 1);
-            Integer percent, percentCalc = 0;
-            for (String item2 : plugin.getConfig().getConfigurationSection("world." + worldStr + ".blocktypes." + generatorGroup).getKeys(false)) {
-                percent = plugin.getConfig().getInt("world." + worldStr + ".blocktypes." + generatorGroup + "." + item2);
-                percentCalc += percent;
-                double percentDouble = ((double) percent);
-                player.sendMessage("§3" + item2 + ": §f" + Math.rint((percentDouble / percentCalc) * 100) + "%");
+            Integer blockWeight = 0;
+            Double totalWeight = 0.0;
+
+            Set<String> blockKeysConf = plugin.getConfig().getConfigurationSection("world." + worldStr + ".blocktypes." + generatorGroup).getKeys(false);
+
+            for (String block : blockKeysConf) {
+                totalWeight = totalWeight + plugin.getConfig().getInt("world." + worldStr + ".blocktypes." + generatorGroup + "." + block);
             }
+
+            String command = "tellraw " + player.getName() + " {\"text\":\"Generator " + generatorGroup + " - " + tierPoints + " points (Hover me)\",\"color\":\"aqua\",\"hoverEvent\":{\"action\":\"show_text\",\"value\":\"";
+            for (String block : blockKeysConf) {
+                blockWeight = plugin.getConfig().getInt("world." + worldStr + ".blocktypes." + generatorGroup + "." + block);
+               command += "" + block + " - " + Math.floor((blockWeight / totalWeight) * 100) + "%\\n";
+            }
+            command += "\"}}";
+            Bukkit.dispatchCommand(console, command);
         }
     }
 }
