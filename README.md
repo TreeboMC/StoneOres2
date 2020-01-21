@@ -1,4 +1,4 @@
-# StoneOres
+# StoneOres2
 A Skyblock cobblestone ore generator based on island level for Minecraft 1.13+
 (checking for level can be disabled per world to allow use outside of BentoBox)
 
