@@ -18,10 +18,13 @@ public class OresAll implements CommandExecutor {
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (cmd.getName().equalsIgnoreCase("oresAll")) {
+        if (sender instanceof Player) {
             Player p = (Player) sender;
                     getAllGeneratorGroups.getAllGeneratorGroups(p);
                 }
+        else{
+            sender.sendMessage(plugin.getLang().getString(plugin.mp + "mustBePlayer"));
+        }
         return true;
     }
 }

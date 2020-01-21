@@ -4,6 +4,11 @@ en:
     noPermission: '&cYou do not have access to this command.'
     hasTier: '&eThe island you are standing on has the access to generator tier &c{permission}&e.'
     rates: '&eThis island can generate:'
+    oresAllRates: 'This island is level %ISLANDLEVEL% which entitles it to use generator group %GENERATORLEVEL% with the following approximate rates'
+    mustBePlayer: '&eThis command may only be run as a player'
+    notOnIsland: 'An error occured determining island owner. You may not be standing in an island region.'
+    worthNothing: 'but is worth nothing after %ITEMLIMIT% blocks of %ITEMINHAND% are on your island'
+    valueOf: 'has a value of'
 
 fr:
   messages:
@@ -11,3 +16,8 @@ fr:
     noPermission: '&cVous navez pas accès à cette commande. '
     hasTier: '&eLîle sur laquelle vous vous trouvez a accès au niveau générateur &c{permission}&e.'
     rates: '&eCette île peut générer:'
+    oresAllRates: 'Cette île est de niveau %ISLANDLEVEL%, ce qui lui permet d''utiliser le groupe de générateurs %GENERATORLEVEL% avec les taux approximatifs suivants'
+    mustBePlayer: '&eCette commande ne peut être exécutée qu''en tant que joueur'
+    notOnIsland: 'Une erreur s''est produite lors de la détermination du propriétaire de l''île. Vous n''êtes peut-être pas debout dans une région insulaire.'
+    worthNothing: 'mais ne vaut rien après que %ITEMLIMIT% blocs de %ITEMINHAND% soient sur votre île'
+    valueOf: 'a une valeur de'

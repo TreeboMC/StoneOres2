@@ -19,6 +19,6 @@ public class CanGenerateCobble {
                 return true;
             }
         }
-        return true;
+        return false;
     }
 }

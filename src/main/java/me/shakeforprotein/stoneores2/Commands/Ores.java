@@ -36,33 +36,35 @@ public class Ores implements CommandExecutor {
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (cmd.getName().equalsIgnoreCase("ores")) {
-           Player p = (Player) sender;
-           World w = p.getWorld();
-           Location blockAtFeet = p.getLocation();
-           String islandOwner;
+        if(sender instanceof Player) {
+            Player p = (Player) sender;
+            World w = p.getWorld();
+            Location blockAtFeet = p.getLocation();
+            String islandOwner;
 
-           try{
-               islandOwner = api.getIslands().getIslandAt(blockAtFeet).get().getOwner().toString();
-               long islandLevel = getIslandLevel.getIslandLevel(UUID.fromString(islandOwner), w);
-               String generator = getGeneratorGroup.getGeneratorGroup(w, islandLevel);
-               Double blockWeight = 0.0;
-               Double totalWeight = 0.0;
-               Set<String> blockKeysConf = plugin.getConfig().getConfigurationSection("world." + w.getName() + ".blocktypes." + generator).getKeys(false);
-               String[] blockKeysArray = Arrays.copyOf(blockKeysConf.toArray(), blockKeysConf.size(), String[].class);
+            try {
+                islandOwner = api.getIslands().getIslandAt(blockAtFeet).get().getOwner().toString();
+                long islandLevel = getIslandLevel.getIslandLevel(UUID.fromString(islandOwner), w);
+                String generator = getGeneratorGroup.getGeneratorGroup(w, islandLevel);
+                Double blockWeight = 0.0;
+                Double totalWeight = 0.0;
+                Set<String> blockKeysConf = plugin.getConfig().getConfigurationSection("world." + w.getName() + ".blocktypes." + generator).getKeys(false);
+                String[] blockKeysArray = Arrays.copyOf(blockKeysConf.toArray(), blockKeysConf.size(), String[].class);
 
-               for (String block : blockKeysArray) {
-                   totalWeight = totalWeight + plugin.getConfig().getInt("world." + w.getName() + ".blocktypes." + generator + "." + block);
-               }
-                p.sendMessage("This island is level " + islandLevel + " which entitles it to use generator group " + generator + "with the following approximate rates:");
-               for (String block : blockKeysArray) {
-                   blockWeight = new Double(plugin.getConfig().getInt("world." + w.getName() + ".blocktypes." + generator + "." + block));
-                   p.sendMessage(ChatColor.AQUA + block + " - " + Math.floor((blockWeight / totalWeight) * 100) + "%");
-               }
-           }
-           catch(Exception err){
-               p.sendMessage("An error occured determining island owner. You may not be standing in an island region.");
-           }
+                for (String block : blockKeysArray) {
+                    totalWeight = totalWeight + plugin.getConfig().getInt("world." + w.getName() + ".blocktypes." + generator + "." + block);
+                }
+                p.sendMessage(plugin.badge +" " + plugin.getLang().getString(plugin.mp + "oresAllRates").replace("%ISLANDLEVEL%", islandLevel + "").replace("%GENERATORLEVEL%", generator).replace('&', '§') + ":");
+                for (String block : blockKeysArray) {
+                    blockWeight = new Double(plugin.getConfig().getInt("world." + w.getName() + ".blocktypes." + generator + "." + block));
+                    p.sendMessage(ChatColor.AQUA + block + " - " + Math.floor((blockWeight / totalWeight) * 100) + "%");
+                }
+            } catch (Exception err) {
+                p.sendMessage(plugin.badge + " " + plugin.getLang().getString(plugin.mp + "notOnIsland").replace('&', '§'));
+            }
+        }
+        else{
+            sender.sendMessage(plugin.badge + " " + plugin.getLang().getString(plugin.mp + "mustBePlayer").replace('&', '§'));
         }
         return true;
     }

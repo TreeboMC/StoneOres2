@@ -29,7 +29,7 @@ private BentoBox api = BentoBox.getInstance();
                 itemValue = api.getAddonsManager().getAddonByName("Level").get().getConfig().getInt("blocks." + itemInHand);
                 itemLimit = api.getAddonsManager().getAddonByName("Level").get().getConfig().getInt("limits." + itemInHand);
                 if (itemLimit > 0) {
-                    blockLimit = " but is worth nothing after " + itemLimit + " blocks of " + itemInHand + " are on your island";
+                    blockLimit = (plugin.getLang().getString(plugin.mp + "worthNothing")).replace("%ITEMLIMIT%",itemLimit + "").replace("%ITEMINHAND%", itemInHand);
                 }
             } catch (NullPointerException e) {
             }
@@ -37,7 +37,7 @@ private BentoBox api = BentoBox.getInstance();
                 itemValue = 0;
             }
             if (sender instanceof Player) {
-                p.sendMessage(itemInHand + " has a value of " + itemValue + blockLimit);
+                p.sendMessage(plugin.badge + " " + itemInHand + plugin.getLang().getString(plugin.mp + "valueOf") + itemValue + blockLimit);
             }
         }
         return true;

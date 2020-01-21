@@ -10,7 +10,7 @@ public class LoadYamls {
     private StoneOres2 plugin;
 
 
-    public LoadYamls(StoneOres2 main){
+    public LoadYamls(StoneOres2 main) {
         this.plugin = main;
     }
 
@@ -18,7 +18,8 @@ public class LoadYamls {
     public void loadYamls() {
         try {
             plugin.lang.load(plugin.langConfig);
-        } catch (InvalidConfigurationException | IOException e) {
+        }
+        catch (InvalidConfigurationException | IOException e) {
         }
     }
 }

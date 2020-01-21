@@ -21,7 +21,7 @@ private UpdateChecker uc;
     public void onPlayerJoinEvent(PlayerJoinEvent e) {
         if (e.getPlayer().hasPermission(uc.requiredPermission)) {
             if ((plugin.getConfig().getString(e.getPlayer().getName()) == null) || ((plugin.getConfig().getString(e.getPlayer().getName()) != null) && (plugin.getConfig().getString(e.getPlayer().getName()).equalsIgnoreCase("false")))) {
-                uc.getCheckDownloadURL(e.getPlayer());
+                uc.getCheckDownloadURL();
                 plugin.getConfig().set(e.getPlayer().getName(), "true");
                 Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
                     public void run() {

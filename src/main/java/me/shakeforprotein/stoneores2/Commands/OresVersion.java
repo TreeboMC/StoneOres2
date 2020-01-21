@@ -18,7 +18,7 @@ public class OresVersion implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (cmd.getName().equalsIgnoreCase("oresVersion")) {
             Player p = (Player) sender;
-            p.sendMessage("StoneOres2 - " + plugin.getDescription().getVersion());
+            p.sendMessage(plugin.badge + " Version - " + plugin.getDescription().getVersion());
         }
         return true;
     }

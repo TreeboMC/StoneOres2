@@ -18,7 +18,7 @@ public class GetGeneratorGroup {
         String[] tierKeys = tierKeysConf.substring(1, tierKeysConf.length() - 1).replaceAll("\\s+", "").split(",");
         String islandTier = "default";
         for (String item : tierKeys) {
-            Integer tierPoints = plugin.getConfig().getInt("world." + worldStr + ".tiers." + item.trim());
+            int tierPoints = plugin.getConfig().getInt("world." + worldStr + ".tiers." + item.trim());
             if (tierPoints < isLvl) {
                 islandTier = item.trim();
             }

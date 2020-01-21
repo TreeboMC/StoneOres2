@@ -36,7 +36,7 @@ public class BlockFromToEvent implements Listener {
     @EventHandler
     public void onBlockFromToEvent(org.bukkit.event.block.BlockFromToEvent e) {
         String generatorGroup = "default";
-        String blockToMake = null;
+        String blockToMake = "COBBLESTONE";
         World world = e.getBlock().getLocation().getWorld();
         String worldName = world.getName();
 
@@ -78,8 +78,7 @@ public class BlockFromToEvent implements Listener {
                             try{e.getBlock()
                                     .getWorld()
                                     .getBlockAt(location)
-                                    .setType(Material
-                                            .getMaterial(blockToMake));
+                                    .setType(Material.getMaterial(blockToMake));
                             }
                             catch(NullPointerException err){}
                             e.setCancelled(true);

@@ -20,11 +20,7 @@ public class GetBlockLocation {
 
         for (BlockFace side : plugin.sides) {
             if (block.getRelative(side, 1).getType() == (material == Material.LAVA ? Material.WATER : Material.LAVA)) {
-                if (block != null && block.getLocation() != null) {
                     location = block.getLocation();
-                } else {
-                    break;
-                }
             }
         }
         return location;

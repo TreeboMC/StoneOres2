@@ -1,7 +1,13 @@
 version:
 apiLink: 'https://api.github.com/repos/TreeboMC/StoneOres2/releases/latest'
 releasePage: 'https://github.com/TreeboMC/StoneOres2/releases/latest'
-checkUpdates: 'true'
+bstatsIntegration: true
+badge: '&6[StoneOres2]&r'
+
+externalFeatures:
+  updates:
+    enabled: true
+    githubKey: 'TreeboMC/StoneOres2'
 
 world:
   BSkyBlock_world_the_end:

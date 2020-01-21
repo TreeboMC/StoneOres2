@@ -39,13 +39,14 @@ public class GetAllGeneratorGroups {
                 totalWeight = totalWeight + plugin.getConfig().getInt("world." + worldStr + ".blocktypes." + generatorGroup + "." + block);
             }
 
-            String command = "tellraw " + player.getName() + " {\"text\":\"Generator " + generatorGroup + " - " + tierPoints + " points (Hover me)\",\"color\":\"aqua\",\"hoverEvent\":{\"action\":\"show_text\",\"value\":\"";
+            String command = "tellraw " + player.getName() + " {\"text\":\"Generator " + generatorGroup + " - " + tierPoints + " levels (Hover me)\",\"color\":\"aqua\",\"hoverEvent\":{\"action\":\"show_text\",\"value\":\"";
             for (String block : blockKeysConf) {
                 blockWeight = plugin.getConfig().getInt("world." + worldStr + ".blocktypes." + generatorGroup + "." + block);
                command += "" + block + " - " + Math.floor((blockWeight / totalWeight) * 100) + "%\\n";
             }
             command += "\"}}";
             Bukkit.dispatchCommand(console, command);
+            
         }
     }
 }
