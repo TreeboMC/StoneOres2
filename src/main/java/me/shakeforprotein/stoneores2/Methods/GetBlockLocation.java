@@ -15,12 +15,13 @@ public class GetBlockLocation {
         this.plugin = main;
     }
 
-    public Location getBlockLocation(Material material, Block block) {
+    public Location getBlockLocation(Block block, Block toBlock) {
         Location location = null;
+        Material material = toBlock.getType();
 
         for (BlockFace side : plugin.sides) {
-            if (block.getRelative(side, 1).getType() == (material == Material.LAVA ? Material.WATER : Material.LAVA)) {
-                    location = block.getLocation();
+        if (toBlock.getRelative(side, 1).getType() == (material == Material.LAVA ? Material.WATER : Material.LAVA)) {
+                    location = toBlock.getLocation();
             }
         }
         return location;

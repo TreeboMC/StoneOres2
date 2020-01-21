@@ -42,11 +42,11 @@ public class BlockFromToEvent implements Listener {
 
 
         if (e.getBlock().getType() == Material.LAVA || (e.getBlock().getType() == Material.WATER)) {
-            if (e.getToBlock().getType() == Material.AIR) {
-                if (canGenerateCobble.canGenerateCobble(e.getBlock().getType(), e.getToBlock())) {
-                    if (getBlockLocation.getBlockLocation(e.getBlock().getType(), e.getToBlock()) != null) {
+
+                if (canGenerateCobble.canGenerateCobble(e.getBlock(), e.getToBlock(), e.getFace())) {
+                    if (getBlockLocation.getBlockLocation(e.getBlock(), e.getToBlock()) != null) {
                         if (plugin.getConfig().getConfigurationSection("world." + worldName) != null) {
-                            Location location = getBlockLocation.getBlockLocation(e.getBlock().getType(), e.getToBlock());
+                            Location location = getBlockLocation.getBlockLocation(e.getBlock(), e.getToBlock());
                             if(plugin.getConfig().getString("world." + worldName + ".checkIslandLevel").equalsIgnoreCase("true")){
                                 UUID ownerUUID = api.getIslands().getIslandAt(e.getBlock().getLocation()).get().getOwner();
                                 generatorGroup = getGeneratorGroup.getGeneratorGroup(e.getBlock().getWorld(), getIslandLevel.getIslandLevel(ownerUUID,  e.getBlock().getWorld()));
@@ -88,5 +88,4 @@ public class BlockFromToEvent implements Listener {
                 }
             }
         }
-    }
 }
