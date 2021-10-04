@@ -2,9 +2,11 @@ package me.shakeforprotein.stoneores2.Listeners;
 
 import me.shakeforprotein.stoneores2.Methods.*;
 import me.shakeforprotein.stoneores2.StoneOres2;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.data.Waterlogged;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import world.bentobox.bentobox.BentoBox;
@@ -42,7 +44,6 @@ public class BlockFromToEvent implements Listener {
 
 
         if (e.getBlock().getType() == Material.LAVA || (e.getBlock().getType() == Material.WATER)) {
-
                 if (canGenerateCobble.canGenerateCobble(e.getBlock(), e.getToBlock(), e.getFace())) {
                     if (getBlockLocation.getBlockLocation(e.getBlock(), e.getToBlock()) != null) {
                         if (plugin.getConfig().getConfigurationSection("world." + worldName) != null) {

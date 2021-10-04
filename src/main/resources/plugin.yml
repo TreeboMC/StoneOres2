@@ -3,6 +3,7 @@ version: ${project.version}
 main: me.shakeforprotein.stoneores2.StoneOres2
 api-version: 1.13
 depend: [BentoBox]
+softdepend: [TreeboRoots]
 authors: [ShakeforProtein]
 description: Replacement rewrite for StoneOres - A custom ore generator for Bentobox Skyblock, AcidIslands, SkyGrid, and CaveBlock. Could theoretically be used on any world.
 website: http://treebo.games/minecraft

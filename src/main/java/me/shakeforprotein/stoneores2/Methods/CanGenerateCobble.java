@@ -7,6 +7,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.Waterlogged;
 import org.bukkit.inventory.meta.BlockStateMeta;
 
 public class CanGenerateCobble {
@@ -23,11 +24,11 @@ public class CanGenerateCobble {
         for (BlockFace side : plugin.sides) {
             if(side.equals(BlockFace.DOWN) || side.equals(BlockFace.UP)){
                 if(block.getType().equals(Material.LAVA)){
-                    if(toBlock.getType().equals(Material.WATER)){
+                    if(toBlock.getType().equals(Material.WATER) || (toBlock.getRelative(side).getState().getBlockData() instanceof Waterlogged && ((Waterlogged) toBlock.getRelative(side).getState().getBlockData()).isWaterlogged())){
                         return true;
                     }
                 }
-                else if(block.getType().equals(Material.WATER)){
+                else if(block.getType().equals(Material.WATER) || (block.getState().getBlockData() instanceof Waterlogged && ((Waterlogged) block.getState().getBlockData()).isWaterlogged())){
                     if(toBlock.getType().equals(Material.LAVA)){
                         return true;
                     }
@@ -35,14 +36,14 @@ public class CanGenerateCobble {
             }
             else {
                 if(block.getType().equals(Material.LAVA)){
-                    if(toBlock.getRelative(side).getType().equals(Material.WATER)){
+                    if(toBlock.getRelative(side).getType().equals(Material.WATER) || (toBlock.getRelative(side).getState().getBlockData() instanceof Waterlogged && ((Waterlogged) toBlock.getRelative(side).getState().getBlockData()).isWaterlogged())){
                         if(toBlock.getType().equals(Material.AIR)) {
                             return true;
                         }
                     }
                 }
                 else
-                if(block.getType().equals(Material.WATER)){
+                if(block.getType().equals(Material.WATER) || (block.getState().getBlockData() instanceof Waterlogged && ((Waterlogged) block.getState().getBlockData()).isWaterlogged())){
                     if(toBlock.getRelative(side).getType().equals(Material.LAVA)){
                         if(toBlock.getType().equals(Material.AIR)) {
                             return true;
